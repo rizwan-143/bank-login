@@ -36,24 +36,34 @@ let updatedBalance;
 
 
   userUploadImage.addEventListener("change", function () {
-    const file = this.files[0];
+  const file = this.files[0];
 
-    if (file) {
-      const reader = new FileReader();
+  if (file) {
+    const reader = new FileReader();
 
-      reader.onload = function (e) {
-    userImage.src = e.target.result;
-    userImage.style.display = "block";
+    reader.onload = function (e) {
+      const imageSrc = e.target.result;
+      userImage.src = imageSrc;
+      userImage.style.display = "block";
 
-    currentUser.image = e.target.result; // ✅ Move here
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
-};
-reader.readAsDataURL(file);
+      // Update currentUser and localStorage
+      currentUser.image = imageSrc;
+      localStorage.setItem("currentUser", JSON.stringify(currentUser));
 
+      // ✅ Update registeredUsers too
+      let updatedUsers = registeredUsers.map(user => {
+        if (user.email === currentUser.email) {
+          return { ...user, image: imageSrc };
+        }
+        return user;
+      });
+      localStorage.setItem("registeredUsers", JSON.stringify(updatedUsers));
+    };
 
+    reader.readAsDataURL(file);
+  }
+});
 
-    }
-  });
 
 
 refreshBalance.addEventListener("click", function () {
