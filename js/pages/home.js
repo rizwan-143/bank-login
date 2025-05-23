@@ -17,6 +17,8 @@ userDetailsHide.style.display = "none";
 let sendMoney = document.getElementById("send-money");
 let senderForm = document.getElementById("sender-form");
 senderForm.style.display = "none";
+let cancelTransactionButton = document.getElementById("cancel-transaction-button");
+cancelTransactionButton.style.display = "none";
 let withDraw = document.getElementById("with-draw");
 let deposit = document.getElementById("deposit");
 let currentBalance = document.getElementById("currentBalance");
@@ -40,12 +42,14 @@ let updatedBalance;
       const reader = new FileReader();
 
       reader.onload = function (e) {
-        userImage.src = e.target.result;
-        userImage.style.display = "block";
-      };
+    userImage.src = e.target.result;
+    userImage.style.display = "block";
 
+    currentUser.image = e.target.result; // ✅ Move here
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+};
+reader.readAsDataURL(file);
 
-      reader.readAsDataURL(file);
 
 
     }
@@ -69,8 +73,16 @@ refreshBalance.addEventListener("click", function () {
 sendMoney.addEventListener("click" , function(){
     senderForm.style.display = "block";
     sendMoney.style.display = "none";
+cancelTransactionButton.style.display = "block";
+
 
 });
+
+cancelTransactionButton.addEventListener("click" , function(){
+    senderForm.style.display = "none";
+    sendMoney.style.display = "block";
+cancelTransactionButton.style.display = "none";
+})
 
 
 senderForm.addEventListener("submit" , function(event){
@@ -152,10 +164,6 @@ renderTransactionHistory();
     console.log(receiver);
     sendMoney.style.display = "block";
 senderForm.style.display = "none";
-
-
-       
-transactionHistory();
 
 })
 
@@ -304,6 +312,7 @@ withDraw.addEventListener("click" , function(){
         
         currentBalance.style.display = "none";
         loadingState.style.display = "block";
+        let currentAmount;
         setTimeout(() => {
           currentBalance.style.display = "block";
           balance -= withDrawAmount;
@@ -341,6 +350,7 @@ deposit.addEventListener("click" , function(){
     if(depositAmount > 0){
         loadingState.style.display = "block";
                 currentBalance.style.display = "none";
+        let currentAmount;
         setTimeout(() => {
             balance += depositAmount;
         currentAmount = currentBalance.textContent,
@@ -381,6 +391,10 @@ window.addEventListener("DOMContentLoaded", function () {
   }
 
 renderTransactionHistory();
+
+if (currentUser.image) {
+    userImage.src = currentUser.image;
+}
 // Render transaction history
     // transactionHistoryList.innerHTML = ""; // Clear old entries (if any)
     // let count = 1;
@@ -400,9 +414,3 @@ renderTransactionHistory();
 
 
 });
-
-
-
-
-
-

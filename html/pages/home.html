@@ -18,7 +18,7 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <nav class="navbar navbar-expand-lg d-flex flex-nowrap gap-3">
+          <nav class="navbar navbar-expand-md d-flex flex-nowrap gap-3">
             <div class="nav-log">
               <a
                 href=""
@@ -27,7 +27,7 @@
               >
             </div>
             <div
-              class="navbar-toggler order-sm-1 order-md-0"
+              class="navbar-toggler order-sm-1 order-md-0 text-white border-white"
               data-bs-target="#offcanvas"
               data-bs-toggle="offcanvas"
               id="nav-toggler"
@@ -35,17 +35,17 @@
               <i class="fa-solid fa-bars"></i>
             </div>
             <div class="offcanvas offcanvas-end" id="offcanvas">
-              <div class="offcanvas-header">
-                <menu>menu</menu>
+              <div class="offcanvas-header"  id="offcanvas-header">
+                <menu class="text-capitalize text-white" >menu</menu>
                 <button
-                  class="btn"
+                  class="btn text-white"
                   data-bs-dismiss="offcanvas"
                   data-bs-target="offcanvas"
                 >
-                  x
+                  <i class="fa-solid fa-xmark"></i>
                 </button>
               </div>
-              <div class="offcanvas-body d-flex justify-content-center">
+              <div class="offcanvas-body d-flex justify-content-center" id="offcanvas-body">
                 <ul class="navbar-nav d-flex justify-content-center align-items-center gap-3">
                   <a href="" class="nav-item text-capitalize text-decoration-none"><li class="nav-link text-white">home</li></a>
                   <a href=""  class="nav-item text-capitalize text-decoration-none"><li class="nav-link text-white">about</li></a>
@@ -69,8 +69,13 @@
                   profile
            </button>
            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="dropdown-menu">
-             <li><a class="dropdown-item text-capitalize" href="#"><input type="file" name="" id="user-upload-image" placeholder="upload image"></li>
-             <li><a class="dropdown-item text-capitalize" href="#" id="view-account-details">view account details</li>
+             <li>
+              <a class="dropdown-item text-capitalize" href="#">
+                <label for="user-upload-image" class="custom-upload-btn">Upload Image</label>
+                <input type="file" name="" id="user-upload-image" placeholder="upload image" class="d-none">
+              </a>
+            </li>
+             <li><a class="dropdown-item text-capitalize" href="#" id="view-account-details">view account details</a></li>
              <li><a class="dropdown-item text-capitalize" href="#" id="deactivate-account">deactivate account</a></li>
              <li><a class="dropdown-item text-capitalize" href="#" id="logout" >logout</a></li>
          </ul>
@@ -131,6 +136,7 @@
                 <button class="btn btn-success text-capitalize"  type="submit" style="font-size: 10px;" id="confirm-payment">confirm transaction</button>
               </div>
             </form>
+            <button class="btn btn-danger mt-2" id="cancel-transaction-button">cancel transaction</button>
           <button class="btn btn-success rounded-circle left-100" id="user-details-hide">hide</button>
           <h6 class="text-capitalize text-success border-bottom" id="user-details-heading">current user account details</h6>
           <ul id="user-profile-details" class="list-unstyled">
